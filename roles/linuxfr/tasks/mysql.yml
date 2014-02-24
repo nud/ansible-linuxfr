@@ -1,0 +1,12 @@
+- name: Install MySQL
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - mysql-server
+    - mysql-client
+    - python-mysqldb
+
+- name: Create the LinuxFR MySQL database
+  mysql_db: name=linuxfr_rails state=present
+
+- name: Create the LinuxFR MySQL user
+  mysql_user: name=linuxfr_rails password=linuxfr_rails priv=linuxfr_rails.*:ALL

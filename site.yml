@@ -1,0 +1,9 @@
+---
+# This is the top-level playbook that defines our entire infrastructure.
+
+- hosts: all
+  user: root
+  gather_facts: False
+  roles:
+    - common
+    - linuxfr

@@ -1,0 +1,18 @@
+- name: Clone the LinuxFR repository
+  git: repo=git://github.com/nono/linuxfr.org.git dest=/srv/sources/linuxfr.org
+
+- name: Configure the Rails apps's database
+  copy: src=linuxfr/database.yml dest=/srv/sources/linuxfr.org/config/database.yml
+
+- name: Configure the Rails apps's secrets
+  copy: src=linuxfr/secret.yml dest=/srv/sources/linuxfr.org/config/secret.yml
+
+- name: Check PATH
+  shell: echo $PATH
+  environment:
+    PATH: $PATH:{{ ruby_path }}
+
+- name: Install the Rails app using Bundler
+  command: bundle install chdir=/srv/sources/linuxfr.org
+  environment:
+    PATH: $PATH:{{ ruby_path }}

@@ -1,0 +1,51 @@
+- name: Install RVM build dependencies
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - autoconf
+    - automake
+    - bison
+    - build-essential
+    - curl
+    - libc6-dev
+    - libcurl4-openssl-dev
+    - libmysql++-dev
+    - libreadline6-dev
+    - libssl-dev
+    - libtool
+    - libxml2-dev
+    - libxslt1-dev
+    - libyaml-dev
+    - libncurses5-dev
+    - zlib1g-dev
+
+- name: Install RVM
+  shell: curl -L https://get.rvm.io | bash creates=/usr/local/rvm/bin/rvm
+
+- name: Find the RVM directory
+  register: rvm_dir
+  command: bash -lc "dirname $(which rvm)"
+
+- name: Find the Ruby/Gem directory
+  register: ruby_dir
+  command: bash -lc "dirname $(which ruby)"
+
+- name: Install Ruby with RVM
+  command: "{{ rvm_dir.stdout }}/rvm install 2.0.0"
+
+- name: Select Ruby 2.0.0 using RVM
+  command: "{{ rvm_dir.stdout }}/rvm use --default 2.0.0"
+
+- name: Install Bundler and Rake gems
+  gem: name={{ item }} state=present
+  with_items:
+    - rake
+    - bundler
+  environment:
+    PATH: "{{ ruby_dir.stdout }}:/usr/sbin:/usr/bin:/sbin:/bin:{{ rvm_dir.stdout }}"
+
+- name: Find the installed gems directory
+  register: gems_dir
+  command: bash -lc "dirname $(which bundle)"
+
+- name: Set ruby_path fact
+  set_fact: ruby_path={{ gems_dir.stdout }}:{{ ruby_dir.stdout }}:/usr/sbin:/usr/bin:/sbin:/bin:{{ rvm_dir.stdout }}
