@@ -17,6 +17,11 @@
   environment:
     PATH: $PATH:{{ ruby_path }}
 
+- name: Setup ElasticSearch
+  command: desi install chdir=/srv/sources/linuxfr.org
+  environment:
+    PATH: $PATH:{{ ruby_path }}
+
 - name: Setup the database
   command: rake db:setup chdir=/srv/sources/linuxfr.org
   environment:
