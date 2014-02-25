@@ -14,7 +14,7 @@ test:
   encoding: utf8
   database: linuxfr_test
   username: linuxfr_test
-  password:
+  password: linuxfr_test
 
 production:
   adapter: mysql2

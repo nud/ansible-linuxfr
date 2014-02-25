@@ -6,7 +6,13 @@
     - python-mysqldb
 
 - name: Create the LinuxFR MySQL database
-  mysql_db: name=linuxfr_rails state=present
+  mysql_db: name={{ item }} state=present
+  with_items:
+    - linuxfr_rails
+    - linuxfr_test
 
 - name: Create the LinuxFR MySQL user
-  mysql_user: name=linuxfr_rails password=linuxfr_rails priv=linuxfr_rails.*:ALL
+  mysql_user: name={{ item }} password={{ item }} priv={{ item }}.*:ALL
+  with_items:
+    - linuxfr_rails
+    - linuxfr_test
