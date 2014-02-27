@@ -16,8 +16,18 @@
 - name: Setup ElasticSearch
   command: desi install chdir=/data/dev/linuxfr/source
 
+- name: Check if the database already exists
+  command: rake db:version chdir=/data/dev/linuxfr/source
+  ignore_errors: True
+  register: db_version
+
 - name: Setup the database
   command: rake db:setup chdir=/data/dev/linuxfr/source
+  when: db_version|failed
+
+- name: Migrate the database
+  command: rake db:migrate chdir=/data/dev/linuxfr/source
+  when: db_version|success
 
 - name: Flush the Redis database
   command: redis-cli flushdb
