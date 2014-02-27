@@ -1,20 +1,23 @@
+- name: Create the LinuxFR user
+  user: name=linuxfr home=/data/dev/linuxfr state=present
+
 - name: Clone the LinuxFR repository
-  git: repo=git://github.com/nono/linuxfr.org.git dest=/srv/sources/linuxfr.org
+  git: repo=git://github.com/nono/linuxfr.org.git dest=/data/dev/linuxfr/source
 
 - name: Configure the Rails apps's database
-  copy: src=linuxfr/database.yml dest=/srv/sources/linuxfr.org/config/database.yml
+  copy: src=linuxfr/database.yml dest=/data/dev/linuxfr/source/config/database.yml
 
 - name: Configure the Rails apps's secrets
-  copy: src=linuxfr/secret.yml dest=/srv/sources/linuxfr.org/config/secret.yml
+  copy: src=linuxfr/secret.yml dest=/data/dev/linuxfr/source/config/secret.yml
 
 - name: Install the Rails app using Bundler
-  command: bundle install chdir=/srv/sources/linuxfr.org
+  command: bundle install chdir=/data/dev/linuxfr/source
 
 - name: Setup ElasticSearch
-  command: desi install chdir=/srv/sources/linuxfr.org
+  command: desi install chdir=/data/dev/linuxfr/source
 
 - name: Setup the database
-  command: rake db:setup chdir=/srv/sources/linuxfr.org
+  command: rake db:setup chdir=/data/dev/linuxfr/source
 
 - name: Flush the Redis database
   command: redis-cli flushdb
@@ -22,4 +25,4 @@
 # This doesn't work because  undefined method `tire' for #<Class:0x00000005cdedf8> (NoMethodError)
 #- name: Initialize indexes
 #  command: ./script/rails r '[Diary, News, Page, Poll, Post, Tracker, WikiPage].each {|m| m.tire.index.refresh }'
-#           chdir=/srv/sources/linuxfr.org
+#           chdir=/data/dev/linuxfr
