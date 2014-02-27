@@ -29,8 +29,8 @@
     - ruby2.0-dev
     - zlib1g-dev
 
-- name: Install Bundler and Rake gems
-  gem: name={{ item }} state=present
+- name: Install Bundler and Unicorn gems
+  gem: name={{ item }} state=latest user_install=no
   with_items:
-    - rake
     - bundler
+    - unicorn
