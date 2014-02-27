@@ -1,0 +1,55 @@
+#
+# Preconfiguration file for virtual machines provisioning (Wheezy)
+#
+
+# Localization
+d-i debian-installer/language string en
+d-i debian-installer/country string BE
+d-i debian-installer/locale string en_US.UTF-8
+d-i keymap select be
+d-i keyboard-configuration/xkb-keymap select be
+d-i keyboard-configuration/variant select Belgian
+
+d-i clock-setup/utc boolean true
+d-i time/zone string Europe/Brussels
+d-i clock-setup/ntp boolean true
+
+# Network
+d-i netcfg/choose_interface select eth0
+d-i netcfg/get_hostname string {{ hostname }}
+d-i netcfg/get_domain string {{ domain_name }}
+d-i netcfg/hostname string {{ hostname }}
+d-i netcfg/wireless_wep string
+
+# APT
+d-i mirror/country string manual
+d-i mirror/http/hostname string ftp.be.debian.org
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+
+# Local users (root only)
+d-i passwd/make-user boolean false
+d-i passwd/root-password password {{ password }}
+d-i passwd/root-password-again password {{ password }}
+
+# Partitioning
+d-i partman-auto/disk string /dev/vda
+d-i partman-auto/method string regular
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
+d-i partman-auto/choose_recipe select atomic
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+grub-installer grub-installer/only_debian boolean true
+
+tasksel tasksel/first multiselect
+d-i pkgsel/include string vim ssh
+
+popularity-contest popularity-contest/participate boolean false
+
+d-i finish-install/keep-consoles boolean true
+d-i finish-install/reboot_in_progress note
