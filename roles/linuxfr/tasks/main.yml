@@ -2,3 +2,4 @@
 - include: deps.yml
 - include: ruby2.yml
 - include: linuxfr.yml
+- include: nginx.yml
