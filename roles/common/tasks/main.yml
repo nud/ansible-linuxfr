@@ -6,3 +6,9 @@
 
 - name: Create sources directory for downloads.
   file: state=directory path=/srv/sources
+
+- name: Install generally useful packages.
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - vim
+    - git

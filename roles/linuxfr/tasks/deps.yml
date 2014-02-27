@@ -1,7 +1,6 @@
 - name: Install other dependencies
   apt: pkg={{ item }} state=installed
   with_items:
-    - git
     - hunspell
     - hunspell-fr
     - imagemagick
