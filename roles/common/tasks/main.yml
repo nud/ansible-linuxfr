@@ -4,8 +4,8 @@
 - name: Install python-apt
   command: apt-get install -y python-apt creates=/usr/share/pyshared/apt
 
-- name: Create sources directory for downloads.
-  file: state=directory path=/srv/sources
+- name: Install ansible modules dependencies
+  apt: pkg=python-pycurl state=installed
 
 - name: Install generally useful packages.
   apt: pkg={{ item }} state=installed
