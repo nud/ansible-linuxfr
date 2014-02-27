@@ -1,0 +1,36 @@
+- name: Add the Bearstech APT key
+  apt_key: id=90158EE0 url=http://deb.bearstech.com/bearstech-archive.gpg state=present
+
+- name: Add the Ruby 2 Debian repository from Bearstech
+  apt_repository: repo="deb http://deb.bearstech.com/debian wheezy-bearstech main" state=present
+
+- name: Install Ruby 2
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - ruby2.0
+
+- name: Install Ruby Gems build dependencies
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - autoconf
+    - automake
+    - build-essential
+    - curl
+    - libc6-dev
+    - libcurl4-openssl-dev
+    - libmysql++-dev
+    - libreadline6-dev
+    - libssl-dev
+    - libtool
+    - libxml2-dev
+    - libxslt1-dev
+    - libyaml-dev
+    - libncurses5-dev
+    - ruby2.0-dev
+    - zlib1g-dev
+
+- name: Install Bundler and Rake gems
+  gem: name={{ item }} state=present
+  with_items:
+    - rake
+    - bundler

@@ -7,25 +7,14 @@
 - name: Configure the Rails apps's secrets
   copy: src=linuxfr/secret.yml dest=/srv/sources/linuxfr.org/config/secret.yml
 
-- name: Check PATH
-  shell: echo $PATH
-  environment:
-    PATH: $PATH:{{ ruby_path }}
-
 - name: Install the Rails app using Bundler
   command: bundle install chdir=/srv/sources/linuxfr.org
-  environment:
-    PATH: $PATH:{{ ruby_path }}
 
 - name: Setup ElasticSearch
   command: desi install chdir=/srv/sources/linuxfr.org
-  environment:
-    PATH: $PATH:{{ ruby_path }}
 
 - name: Setup the database
   command: rake db:setup chdir=/srv/sources/linuxfr.org
-  environment:
-    PATH: $PATH:{{ ruby_path }}
 
 - name: Flush the Redis database
   command: redis-cli flushdb
@@ -34,5 +23,3 @@
 #- name: Initialize indexes
 #  command: ./script/rails r '[Diary, News, Page, Poll, Post, Tracker, WikiPage].each {|m| m.tire.index.refresh }'
 #           chdir=/srv/sources/linuxfr.org
-#  environment:
-#    PATH: $PATH:{{ ruby_path }}

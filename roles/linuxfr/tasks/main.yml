@@ -1,4 +1,4 @@
 - include: mysql.yml
 - include: deps.yml
-- include: rvm.yml
+- include: ruby2.yml
 - include: linuxfr.yml
