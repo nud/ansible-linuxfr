@@ -4,7 +4,7 @@
 # We simulate capistrano's behaviour.
 
 - name: Link the git repository to 'current'
-  file: src=/data/dev/linuxfr/source dest=/data/dev/linuxfr/current state=link
+  file: src=/data/{{ linuxfr_env }}/linuxfr/source dest=/data/{{ linuxfr_env }}/linuxfr/current state=link
 
 # Wheezy doesn't create a /var/www anymore, as it is now recommended to put
 # this kind of data inside /srv. We create it anyway to mimick the current
@@ -14,4 +14,4 @@
   file: path=/var/www state=directory
 
 - name: Link the linuxfr codebase into /var/www
-  file: src=/data/dev/linuxfr dest=/var/www/linuxfr state=link
+  file: src=/data/{{ linuxfr_env }}/linuxfr dest=/var/www/linuxfr state=link

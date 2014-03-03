@@ -1,0 +1,6 @@
+repositories:
+  linuxfr:
+    url: git://github.com/nono/linuxfr.org.git
+    branch: master
+
+linuxfr_env: dev
