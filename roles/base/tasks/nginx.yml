@@ -1,2 +1,12 @@
 - name: Install nginx
   apt: pkg=nginx-light state=installed
+
+- name: Configure the nginx virtual host
+  template: src=nginx-site.j2 dest=/etc/nginx/sites-available/dlfp.lo
+  notify:
+    - reload nginx
+
+- name: Enable the nginx virtual host
+  file: src=/etc/nginx/sites-available/dlfp.lo dest=/etc/nginx/sites-enabled/dlfp.lo state=link
+  notify:
+    - reload nginx
