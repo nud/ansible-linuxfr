@@ -10,3 +10,10 @@ Instructions to set up a linuxfr.org development server:
    directory.
 4. Run 'ansible-playbook -k -i hosts site.yml'
 5. Profit!
+
+Description of the available roles:
+
+* common: common stuff to have ansible work as expected.
+* base: base configuration for the linuxfr server.
+* img: the image cacher.
+* linuxfr: the actual web site.

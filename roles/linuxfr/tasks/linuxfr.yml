@@ -1,11 +1,5 @@
-- name: Create the LinuxFR user
-  user: name=linuxfr home={{ linuxfr_home }} state=present
-
 - name: Clone the LinuxFR repository
   git: repo={{ linuxfr_repository['url'] }} version={{ linuxfr_repository['branch'] }} dest={{ linuxfr_home }}/source
-
-- name: Clone the LinuxFR administration repository
-  git: repo={{ admin_repository['url'] }} version={{ admin_repository['branch'] }} dest={{ linuxfr_home }}/admin
 
 - name: Configure the Rails apps's database
   copy: src=linuxfr/database.yml dest={{ linuxfr_home }}/source/config/database.yml

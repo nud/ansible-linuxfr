@@ -8,12 +8,6 @@
   command: go get -u {{ img_repository['url'] }} creates={{ linuxfr_home }}/go/bin/img-LinuxFr.org
   environment: go_env
 
-- name: Create the cache and logs directories
-  file: path={{ item }} state=directory owner=linuxfr group=linuxfr
-  with_items:
-    - "{{ linuxfr_home }}/logs"
-    - "{{ linuxfr_home }}/cache"
-
 - name: Link the img-LinuxFr.org init script into place.
   file: src={{ linuxfr_home }}/admin/init.d/img dest=/etc/init.d/img state=link
 

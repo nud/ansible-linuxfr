@@ -8,5 +8,6 @@
     - vars/default.yml
   roles:
     - common
-    - linuxfr
+    - base
     - img
+    - linuxfr

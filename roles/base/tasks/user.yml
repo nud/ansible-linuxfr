@@ -1,0 +1,8 @@
+- name: Create the LinuxFR user
+  user: name=linuxfr home={{ linuxfr_home }} state=present
+
+- name: Create the cache and logs directories
+  file: path={{ item }} state=directory owner=linuxfr group=linuxfr
+  with_items:
+    - "{{ linuxfr_home }}/logs"
+    - "{{ linuxfr_home }}/cache"
