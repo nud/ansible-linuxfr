@@ -1,0 +1,26 @@
+- name: Install go
+  apt: pkg=golang state=installed
+
+- name: Put the go-env file into the linuxfr home directory
+  template: src=home/go-env.j2 dest={{ linuxfr_home }}/go-env
+
+- name: Install img-LinuxFr.org
+  command: go get -u {{ img_repository['url'] }} creates={{ linuxfr_home }}/go/bin/img-LinuxFr.org
+  environment: go_env
+
+- name: Create the cache and logs directories
+  file: path={{ item }} state=directory owner=linuxfr group=linuxfr
+  with_items:
+    - "{{ linuxfr_home }}/logs"
+    - "{{ linuxfr_home }}/cache"
+
+- name: Link the img-LinuxFr.org init script into place.
+  file: src={{ linuxfr_home }}/admin/init.d/img dest=/etc/init.d/img state=link
+
+- name: Put the img-LinuxFr.org configuration into /etc/default/img
+  template: src=default/img.j2 dest=/etc/default/img
+  notify:
+    - restart img
+
+- name: Ensure the img-LinuxFr.org service is enabled and started
+  service: name=img enabled=yes state=started

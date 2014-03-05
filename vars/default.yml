@@ -1,3 +1,6 @@
+linuxfr_env: dev
+linuxfr_home: /data/{{ linuxfr_env }}/linuxfr
+
 repositories:
   linuxfr:
     url: git://github.com/nono/linuxfr.org.git
@@ -6,4 +9,12 @@ repositories:
     url: git://github.com/nud/admin-linuxfr.org.git
     branch: master
 
-linuxfr_env: dev
+img_repository:
+  url: github.com/nono/img-LinuxFr.org
+
+base_path: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+go_env:
+  GOPATH: "{{ linuxfr_home }}/go"
+  GOROOT: "/usr/lib/go"
+  PATH: "{{ linuxfr_home }}/go/bin:{{ base_path }}"

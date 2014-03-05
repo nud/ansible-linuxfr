@@ -1,0 +1,3 @@
+{% for (var, value) in go_env.items() %}
+export {{ var }}={{ value }}
+{% endfor %}
