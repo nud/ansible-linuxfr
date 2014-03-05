@@ -1,35 +1,35 @@
 - name: Create the LinuxFR user
-  user: name=linuxfr home=/data/{{ linuxfr_env }}/linuxfr state=present
+  user: name=linuxfr home={{ linuxfr_home }} state=present
 
 - name: Clone the LinuxFR repository
-  git: repo={{ repositories['linuxfr']['url'] }} version={{ repositories['linuxfr']['branch'] }} dest=/data/{{ linuxfr_env }}/linuxfr/source
+  git: repo={{ repositories['linuxfr']['url'] }} version={{ repositories['linuxfr']['branch'] }} dest={{ linuxfr_home }}/source
 
 - name: Clone the LinuxFR administration repository
-  git: repo={{ repositories['admin']['url'] }} version={{ repositories['admin']['branch'] }} dest=/data/{{ linuxfr_env }}/linuxfr/admin
+  git: repo={{ repositories['admin']['url'] }} version={{ repositories['admin']['branch'] }} dest={{ linuxfr_home }}/admin
 
 - name: Configure the Rails apps's database
-  copy: src=linuxfr/database.yml dest=/data/{{ linuxfr_env }}/linuxfr/source/config/database.yml
+  copy: src=linuxfr/database.yml dest={{ linuxfr_home }}/source/config/database.yml
 
 - name: Configure the Rails apps's secrets
-  copy: src=linuxfr/secret.yml dest=/data/{{ linuxfr_env }}/linuxfr/source/config/secret.yml
+  copy: src=linuxfr/secret.yml dest={{ linuxfr_home }}/source/config/secret.yml
 
 - name: Install the Rails app using Bundler
-  command: bundle install chdir=/data/{{ linuxfr_env }}/linuxfr/source
+  command: bundle install chdir={{ linuxfr_home }}/source
 
 - name: Setup ElasticSearch
-  command: desi install chdir=/data/{{ linuxfr_env }}/linuxfr/source
+  command: desi install chdir={{ linuxfr_home }}/source
 
 - name: Check if the database already exists
-  command: rake db:version chdir=/data/{{ linuxfr_env }}/linuxfr/source
+  command: rake db:version chdir={{ linuxfr_home }}/source
   ignore_errors: True
   register: db_version
 
 - name: Setup the database
-  command: rake db:setup chdir=/data/{{ linuxfr_env }}/linuxfr/source
+  command: rake db:setup chdir={{ linuxfr_home }}/source
   when: db_version|failed
 
 - name: Migrate the database
-  command: rake db:migrate chdir=/data/{{ linuxfr_env }}/linuxfr/source
+  command: rake db:migrate chdir={{ linuxfr_home }}/source
   when: db_version|success
 
 - name: Flush the Redis database
@@ -38,4 +38,4 @@
 # This doesn't work because  undefined method `tire' for #<Class:0x00000005cdedf8> (NoMethodError)
 #- name: Initialize indexes
 #  command: ./script/rails r '[Diary, News, Page, Poll, Post, Tracker, WikiPage].each {|m| m.tire.index.refresh }'
-#           chdir=/data/{{ linuxfr_env }}/linuxfr
+#           chdir={{ linuxfr_home }}
