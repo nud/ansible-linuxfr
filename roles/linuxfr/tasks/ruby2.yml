@@ -34,3 +34,4 @@
   with_items:
     - bundler
     - unicorn
+  environment: ruby_env

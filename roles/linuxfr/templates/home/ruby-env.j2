@@ -1,2 +1,3 @@
-export RAILS_ENV=development
-export NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+{% for (var, value) in ruby_env.items() %}
+export {{ var }}={{ value }}
+{% endfor %}

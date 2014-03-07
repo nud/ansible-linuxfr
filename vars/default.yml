@@ -14,6 +14,12 @@ img_repository:
 
 base_path: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+ruby_env:
+  RAILS_ENV: development
+  GEM_HOME: "{{ linuxfr_home }}/gem"
+  NOKOGIRI_USE_SYSTEM_LIBRARIES: true
+  PATH: "{{ linuxfr_home }}/gem/bin:{{ base_path }}"
+
 go_env:
   GOPATH: "{{ linuxfr_home }}/go"
   GOROOT: "/usr/lib/go"
