@@ -2,7 +2,7 @@
   template: src=home/ruby-env.j2 dest={{ linuxfr_home }}/ruby-env
 
 - name: Link the unicorn init script into place.
-  file: src={{ linuxfr_home }}/admin/init.d/unicorn dest=/etc/init.d/unicorn state=link
+  file: src={{ linuxfr_home }}/src/admin/init.d/unicorn dest=/etc/init.d/unicorn state=link
 
 - name: Ensure the directories used by unicorn exist.
   file: path={{ linuxfr_home }}/development/shared/{{ item }} state=directory owner=linuxfr group=linuxfr

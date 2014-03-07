@@ -4,4 +4,4 @@
   file: path={{ linuxfr_home }}/{{ linuxfr_environment }} state=directory
 
 - name: Link the git repository to 'current'
-  file: src={{ linuxfr_home }}/source dest={{ linuxfr_home }}/{{ linuxfr_environment }}/current state=link
+  file: src={{ linuxfr_home }}/src/linuxfr.org dest={{ linuxfr_home }}/{{ linuxfr_environment }}/current state=link

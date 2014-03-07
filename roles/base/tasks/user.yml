@@ -4,5 +4,6 @@
 - name: Create the cache and logs directories
   file: path={{ item }} state=directory owner={{ linuxfr_user }} group={{ linuxfr_user }}
   with_items:
+    - "{{ linuxfr_home }}/src"
     - "{{ linuxfr_home }}/logs"
     - "{{ linuxfr_home }}/cache"

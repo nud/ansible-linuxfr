@@ -1,29 +1,29 @@
 - name: Clone the LinuxFR repository
-  git: repo={{ linuxfr_repository['url'] }} version={{ linuxfr_repository['branch'] }} dest={{ linuxfr_home }}/source
+  git: repo={{ linuxfr_repository['url'] }} version={{ linuxfr_repository['branch'] }} dest={{ linuxfr_home }}/src/linuxfr.org
 
 - name: Configure the Rails apps's database
-  copy: src=linuxfr/database.yml dest={{ linuxfr_home }}/source/config/database.yml
+  copy: src=linuxfr/database.yml dest={{ linuxfr_home }}/src/linuxfr.org/config/database.yml
 
 - name: Configure the Rails apps's secrets
-  copy: src=linuxfr/secret.yml dest={{ linuxfr_home }}/source/config/secret.yml
+  copy: src=linuxfr/secret.yml dest={{ linuxfr_home }}/src/linuxfr.org/config/secret.yml
 
 - name: Install the Rails app using Bundler
-  command: bundle install chdir={{ linuxfr_home }}/source
+  command: bundle install chdir={{ linuxfr_home }}/src/linuxfr.org
 
 - name: Setup ElasticSearch
-  command: desi install chdir={{ linuxfr_home }}/source
+  command: desi install chdir={{ linuxfr_home }}/src/linuxfr.org
 
 - name: Check if the database already exists
-  command: rake db:version chdir={{ linuxfr_home }}/source
+  command: rake db:version chdir={{ linuxfr_home }}/src/linuxfr.org
   ignore_errors: True
   register: db_version
 
 - name: Setup the database
-  command: rake db:setup chdir={{ linuxfr_home }}/source
+  command: rake db:setup chdir={{ linuxfr_home }}/src/linuxfr.org
   when: db_version|failed
 
 - name: Migrate the database
-  command: rake db:migrate chdir={{ linuxfr_home }}/source
+  command: rake db:migrate chdir={{ linuxfr_home }}/src/linuxfr.org
   when: db_version|success
 
 - name: Flush the Redis database

@@ -1,2 +1,2 @@
 - name: Clone the LinuxFR administration repository
-  git: repo={{ admin_repository['url'] }} version={{ admin_repository['branch'] }} dest={{ linuxfr_home }}/admin
+  git: repo={{ admin_repository['url'] }} version={{ admin_repository['branch'] }} dest={{ linuxfr_home }}/src/admin

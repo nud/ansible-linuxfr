@@ -9,7 +9,7 @@
   environment: go_env
 
 - name: Link the img-LinuxFr.org init script into place.
-  file: src={{ linuxfr_home }}/admin/init.d/img dest=/etc/init.d/img state=link
+  file: src={{ linuxfr_home }}/src/admin/init.d/img dest=/etc/init.d/img state=link
 
 - name: Put the img-LinuxFr.org configuration into /etc/default/img
   template: src=default/img.j2 dest=/etc/default/img

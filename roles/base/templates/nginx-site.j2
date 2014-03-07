@@ -1,5 +1,5 @@
 upstream linuxfr-frontend {
-    #server unix:{{ linuxfr_home }}/source/tmp/sockets/{{ linuxfr_environment }}.sock fail_timeout=0;
+    #server unix:{{ linuxfr_home }}/src/linuxfr.org/tmp/sockets/{{ linuxfr_environment }}.sock fail_timeout=0;
 	  server 127.0.0.1:3000;
 }
 
@@ -14,7 +14,7 @@ upstream img-frontend {
 server {
     server_name dlfp.lo;
     access_log /var/log/nginx/dlfp.access.log;
-    root {{ linuxfr_home }}/source/public;
+    root {{ linuxfr_home }}/src/linuxfr.org/public;
 
     listen 80;
 #    listen 443 default ssl;
