@@ -1,5 +1,5 @@
 upstream linuxfr-frontend {
-    #server unix:{{ linuxfr_home }}/source/tmp/sockets/development.sock fail_timeout=0;
+    #server unix:{{ linuxfr_home }}/source/tmp/sockets/{{ linuxfr_environment }}.sock fail_timeout=0;
 	  server 127.0.0.1:3000;
 }
 

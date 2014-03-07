@@ -1,7 +1,7 @@
 # We simulate capistrano's behaviour.
 
-- name: Create the "development" directory
-  file: path={{ linuxfr_home }}/development state=directory
+- name: Create the "{{ linuxfr_environment }}" directory
+  file: path={{ linuxfr_home }}/{{ linuxfr_environment }} state=directory
 
 - name: Link the git repository to 'current'
-  file: src={{ linuxfr_home }}/source dest={{ linuxfr_home }}/development/current state=link
+  file: src={{ linuxfr_home }}/source dest={{ linuxfr_home }}/{{ linuxfr_environment }}/current state=link
