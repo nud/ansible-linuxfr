@@ -1,5 +1,4 @@
-linuxfr_env: dev
-linuxfr_home: /data/{{ linuxfr_env }}/linuxfr
+linuxfr_home: /data/dev/linuxfr
 
 linuxfr_repository:
   url: git://github.com/nono/linuxfr.org.git
