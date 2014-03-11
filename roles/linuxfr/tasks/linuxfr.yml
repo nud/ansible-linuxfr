@@ -10,8 +10,9 @@
 - name: Install the Rails app using Bundler
   command: bundle install chdir={{ linuxfr_home }}/src/linuxfr.org
 
+# Stinky workaround for https://github.com/AF83/desi/issues/25
 - name: Setup ElasticSearch
-  command: desi install chdir={{ linuxfr_home }}/src/linuxfr.org
+  command: desi install {{ elasticsearch_version }} creates=/root/elasticsearch/elasticsearch-{{ elasticsearch_version }}
 
 - name: Check if the database already exists
   command: rake db:version chdir={{ linuxfr_home }}/src/linuxfr.org

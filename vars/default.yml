@@ -25,3 +25,5 @@ go_env:
   GOPATH: "{{ linuxfr_home }}/go"
   GOROOT: "/usr/lib/go"
   PATH: "{{ linuxfr_home }}/go/bin:{{ base_path }}"
+
+elasticsearch_version: 1.0.1
