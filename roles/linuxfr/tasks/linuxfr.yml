@@ -40,3 +40,14 @@
 
 - name: Initialize indexes
   command: rake elasticsearch:import chdir={{ linuxfr_home }}/src/linuxfr.org
+
+- name: Install the LinuxFr.org init script
+  copy: src=init.d/linuxfr dest=/etc/init.d/linuxfr mode=0755
+
+- name: Put the LinuxFR configuration into /etc/default/linuxfr
+  template: src=default/linuxfr.j2 dest=/etc/default/linuxfr
+  notify:
+    - restart linuxfr
+
+- name: Ensure the LinuxFR server is enabled and started
+  service: name=linuxfr state=started enabled=yes
