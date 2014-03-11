@@ -1,0 +1,43 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          elasticsearch
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the elasticsearch server
+### END INIT INFO
+#
+# Install with: update-rc.d elasticsearch defaults 99
+
+set -e
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+NAME=elasticsearch
+HOME=/root
+
+case "$1" in
+  start)
+    echo "Starting $NAME"
+    HOME=$HOME /usr/local/bin/desi start
+    echo "."
+    ;;
+
+  stop)
+    echo "Stopping $NAME"
+    HOME=$HOME /usr/local/bin/desi stop
+    echo "."
+    ;;
+
+  force-reload|restart)
+    echo "Restarting $NAME"
+    HOME=$HOME /usr/local/bin/desi restart
+    echo "."
+    ;;
+
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|force-reload|restart}"
+    exit 1
+esac
+
+exit 0

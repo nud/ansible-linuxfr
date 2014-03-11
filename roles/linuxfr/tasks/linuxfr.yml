@@ -10,9 +10,17 @@
 - name: Install the Rails app using Bundler
   command: bundle install chdir={{ linuxfr_home }}/src/linuxfr.org
 
+- name: Install the ElasticSearch init script
+  copy: src=init.d/elasticsearch dest=/etc/init.d/elasticsearch mode=0755
+
 # Stinky workaround for https://github.com/AF83/desi/issues/25
 - name: Setup ElasticSearch
   command: desi install {{ elasticsearch_version }} creates=/root/elasticsearch/elasticsearch-{{ elasticsearch_version }}
+  notify:
+    - restart elasticsearch
+
+- name: Ensure ElasticSearch is enabled and started
+  service: name=elasticsearch state=started enabled=yes
 
 - name: Check if the database already exists
   command: rake db:version chdir={{ linuxfr_home }}/src/linuxfr.org
