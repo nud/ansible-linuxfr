@@ -38,7 +38,5 @@
 - name: Flush the Redis database
   command: redis-cli flushdb
 
-# This doesn't work because  undefined method `tire' for #<Class:0x00000005cdedf8> (NoMethodError)
-#- name: Initialize indexes
-#  command: ./script/rails r '[Diary, News, Page, Poll, Post, Tracker, WikiPage].each {|m| m.tire.index.refresh }'
-#           chdir={{ linuxfr_home }}
+- name: Initialize indexes
+  command: rake elasticsearch:import chdir={{ linuxfr_home }}/src/linuxfr.org
