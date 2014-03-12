@@ -16,6 +16,9 @@ NAME=linuxfr
 . /etc/default/$NAME
 
 do_start() {
+  # Work around "Launchy" failure when creating accounts.
+  export BROWSER=w3m
+
   cd $RAILS_DIR && script/rails server -d -e $RAILS_ENV -P $PIDFILE
 }
 
