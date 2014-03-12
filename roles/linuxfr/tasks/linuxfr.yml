@@ -9,6 +9,7 @@
 
 - name: Install the Rails app using Bundler
   command: bundle install chdir={{ linuxfr_home }}/src/linuxfr.org
+  environment: ruby_env
 
 - name: Install the ElasticSearch init script
   copy: src=init.d/elasticsearch dest=/etc/init.d/elasticsearch mode=0755
@@ -16,6 +17,7 @@
 # Stinky workaround for https://github.com/AF83/desi/issues/25
 - name: Setup ElasticSearch
   command: desi install {{ elasticsearch_version }} creates=/root/elasticsearch/elasticsearch-{{ elasticsearch_version }}
+  environment: ruby_env
   notify:
     - restart elasticsearch
 
@@ -25,14 +27,17 @@
 - name: Check if the database already exists
   command: rake db:version chdir={{ linuxfr_home }}/src/linuxfr.org
   ignore_errors: True
+  environment: ruby_env
   register: db_version
 
 - name: Setup the database
   command: rake db:setup chdir={{ linuxfr_home }}/src/linuxfr.org
+  environment: ruby_env
   when: db_version|failed
 
 - name: Migrate the database
   command: rake db:migrate chdir={{ linuxfr_home }}/src/linuxfr.org
+  environment: ruby_env
   when: db_version|success
 
 - name: Flush the Redis database
@@ -40,6 +45,7 @@
 
 - name: Initialize indexes
   command: rake elasticsearch:import chdir={{ linuxfr_home }}/src/linuxfr.org
+  environment: ruby_env
 
 - name: Install the LinuxFr.org init script
   copy: src=init.d/linuxfr dest=/etc/init.d/linuxfr mode=0755

@@ -5,4 +5,4 @@
   service: name=elasticsearch state=restarted
 
 - name: restart linuxfr
-  service: name=linuxfr start=restarted
+  service: name=linuxfr state=restarted

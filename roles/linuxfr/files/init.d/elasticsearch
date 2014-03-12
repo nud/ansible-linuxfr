@@ -14,24 +14,26 @@ set -e
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 NAME=elasticsearch
-HOME=/root
+
+export HOME=/root
+. $HOME/ruby-env
 
 case "$1" in
   start)
     echo "Starting $NAME"
-    HOME=$HOME /usr/local/bin/desi start
+    desi start
     echo "."
     ;;
 
   stop)
     echo "Stopping $NAME"
-    HOME=$HOME /usr/local/bin/desi stop
+    desi stop
     echo "."
     ;;
 
   force-reload|restart)
     echo "Restarting $NAME"
-    HOME=$HOME /usr/local/bin/desi restart
+    desi restart
     echo "."
     ;;
 
