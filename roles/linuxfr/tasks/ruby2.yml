@@ -1,9 +1,3 @@
-- name: Add the Bearstech APT key
-  apt_key: id=90158EE0 url=http://deb.bearstech.com/bearstech-archive.gpg state=present
-
-- name: Add the Ruby 2 Debian repository from Bearstech
-  apt_repository: repo="deb http://deb.bearstech.com/debian wheezy-bearstech main" state=present
-
 - name: Install Ruby 2
   apt: pkg={{ item }} state=installed
   with_items:

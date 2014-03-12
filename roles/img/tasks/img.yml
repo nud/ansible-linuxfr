@@ -1,5 +1,5 @@
 - name: Install go
-  apt: pkg=golang state=installed
+  apt: pkg=golang state=latest
 
 - name: Put the go-env file into the linuxfr home directory
   template: src=home/go-env.j2 dest={{ linuxfr_home }}/go-env

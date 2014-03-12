@@ -1,2 +1,8 @@
 - name: Clone the LinuxFR administration repository
   git: repo={{ admin_repository['url'] }} version={{ admin_repository['branch'] }} dest={{ linuxfr_home }}/src/admin
+
+- name: Add the Bearstech APT key
+  apt_key: id=90158EE0 url=http://deb.bearstech.com/bearstech-archive.gpg state=present
+
+- name: Add the APT repository from Bearstech (contains ruby2, golang)
+  apt_repository: repo="deb http://deb.bearstech.com/debian wheezy-bearstech main" state=present
