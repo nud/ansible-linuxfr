@@ -1,8 +1,8 @@
+- name: Install python-apt
+  raw: sh -c 'test -d /usr/share/pyshared/apt || apt-get install -y python-apt'
+
 - name: Update APT cache
   apt: update_cache=yes
-
-- name: Install python-apt
-  command: apt-get install -y python-apt creates=/usr/share/pyshared/apt
 
 - name: Install ansible modules dependencies
   apt: pkg=python-pycurl state=installed
