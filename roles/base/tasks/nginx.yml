@@ -10,3 +10,6 @@
   file: src=/etc/nginx/sites-available/dlfp.lo dest=/etc/nginx/sites-enabled/dlfp.lo state=link
   notify:
     - reload nginx
+
+- name: Ensure nginx is enabled and running
+  service: name=nginx state=started enabled=yes
