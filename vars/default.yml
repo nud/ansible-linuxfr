@@ -1,5 +1,9 @@
-linuxfr_user: linuxfr
-linuxfr_home: /data/dev/linuxfr
+# Interested parties should check the roles and use remote_user where
+# appropriate to install stuff as a non-root user.
+# See http://docs.ansible.com/playbooks_intro.html#hosts-and-users
+linuxfr_user: root
+linuxfr_home: /root
+
 linuxfr_environment: development
 
 linuxfr_repository:
