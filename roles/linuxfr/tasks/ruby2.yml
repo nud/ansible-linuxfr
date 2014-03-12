@@ -29,9 +29,6 @@
 - name: Put the ruby-env file into the linuxfr home directory
   template: src=home/ruby-env.j2 dest={{ linuxfr_home }}/ruby-env
 
-- name: Install Bundler and Unicorn gems
-  gem: name={{ item }} state=latest user_install=no
-  with_items:
-    - bundler
-    - unicorn
+- name: Install Bundler gem
+  gem: name=bundler state=latest user_install=no
   environment: ruby_env

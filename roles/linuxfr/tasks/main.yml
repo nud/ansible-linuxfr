@@ -3,4 +3,4 @@
 - include: ruby2.yml
 - include: linuxfr.yml
 - include: capistrano.yml
-- include: unicorn.yml
+#- include: unicorn.yml

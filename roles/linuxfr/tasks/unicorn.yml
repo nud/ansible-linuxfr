@@ -1,3 +1,7 @@
+- name: Install Unicorn gem
+  gem: name=unicorn state=latest user_install=no
+  environment: ruby_env
+
 - name: Link the unicorn init script into place.
   file: src={{ linuxfr_home }}/src/admin/init.d/unicorn dest=/etc/init.d/unicorn state=link
 
