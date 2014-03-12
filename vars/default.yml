@@ -11,7 +11,7 @@ linuxfr_repository:
   branch: master
 
 admin_repository:
-  url: git://github.com/nud/admin-linuxfr.org.git
+  url: git://github.com/nono/admin-linuxfr.org.git
   branch: master
 
 img_repository:
