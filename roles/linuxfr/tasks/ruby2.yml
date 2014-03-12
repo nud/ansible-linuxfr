@@ -23,6 +23,12 @@
     - ruby2.0-dev
     - zlib1g-dev
 
+- name: Create the ruby gem directory
+  file: name={{ ruby_env['GEM_HOME'] }} state=directory
+
+- name: Put the ruby-env file into the linuxfr home directory
+  template: src=home/ruby-env.j2 dest={{ linuxfr_home }}/ruby-env
+
 - name: Install Bundler and Unicorn gems
   gem: name={{ item }} state=latest user_install=no
   with_items:
