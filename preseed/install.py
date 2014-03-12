@@ -1,14 +1,15 @@
 #!/usr/bin/python
 
+import os
 import sys
 
-if count(sys.argv) < 2:
+if len(sys.argv) < 2:
     print("Usage: %s <hostname>" % sys.argv[0])
     sys.exit(1)
 
 HOSTNAME = sys.argv[1]
 DOMAIN_NAME = 'linuxfr.org'
-PRESEED_TEMPLATE = 'preseed-vm-wheezy.cfg.j2'
+PRESEED_TEMPLATE = os.path.join(os.path.dirname(sys.argv[0]), 'preseed-vm-wheezy.cfg.j2')
 
 HYPERVISOR='qemu:///system'
 NETWORK='bridge:virbr0'
@@ -39,7 +40,7 @@ cmd = [
     '--initrd-inject=%s' % os.path.join(tempdir, 'preseed.cfg'),
     '--name=%s' % HOSTNAME,
     '--ram=512',
-    '--disk=pool=default,size=5,format=raw,bus=virtio',
+    '--disk=pool=default,size=4,format=raw,bus=virtio',
     '--network=%s' % NETWORK,
     '--extra-args=auto'
 ]
